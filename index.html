@@ -14,7 +14,7 @@ async function init() {
 
 const data = await d3.csv('https://amyyuan2244.github.io/bigCategories.csv');
 
-const width = 500;
+const width = 1000;
 const height = 500;
 const margin = 50;
 const maxY = 60;
@@ -48,20 +48,34 @@ d3.select("svg").append("g")
 .call(d3.axisBottom(x));
 
 // axes labels
-d3.select("svg").append("text")
+d3.select("svg")
+    .append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
-    .attr("x", width - 2*margin)
+    .attr("x", (width/2 + 2*margin))
     .attr("y", height+margin*2-10)
+    .style("font-size", "14px") 
     .text("Categories of Expenditures");
 
-d3.select("svg").append("text")
+d3.select("svg")
+    .append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
     .attr("x", -height/4)
     .attr("y", 0)
     .attr("dy", ".75em")
     .attr("transform", "rotate(-90)")
+    .style("font-size", "14px") 
     .text("Percentage Change in CPI from March 2020 to June 2025");
+
+// chart title
+d3.select("svg")
+    .append("text")
+    .attr("x", (width/2 + margin))             
+    .attr("y", (margin/ 2))
+    .attr("text-anchor", "middle")  
+    .style("font-size", "16px") 
+    .style("text-decoration", "underline")  
+    .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
 }
 </script></html>
