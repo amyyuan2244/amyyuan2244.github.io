@@ -23,8 +23,8 @@ d3.select('svg')
 .data(data)
 .enter()
 .append('circle')
-.attr('cx', function(d) { return 50;})
-.attr('cy', function(d) { return 50;})
+.attr('cx', function(d) { return d.now;})
+.attr('cy', function(d) { return d.pandemic;})
 .attr('r', function(d) {return d.percentageChange;});
 
 
