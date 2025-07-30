@@ -9,7 +9,11 @@ While it’s difficult to place an exact date on when a pandemic starts, the Wor
 </svg>
 <script>
 
+
 async function init() {
+
+const data = await d3.csv('https://amyyuan2244.github.io/bigCategories.csv');
+
 const width = 500;
 const height = 500;
 const margin = 50;
@@ -18,7 +22,7 @@ var xCategories = ["all items", "food", "energy", "all items except food and ene
 var x = d3.scaleBand().domain(xCategories).range([0, width]);
 var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
 
-const data = await d3.csv('https://amyyuan2244.github.io/bigCategories.csv');
+
 d3.select('svg')
 .attr("width", width + 2 * margin)
 .attr("height", height + 2 * margin)
@@ -33,6 +37,8 @@ d3.select('svg')
 .attr("width", function(d,i ) {return width/xCategories.length;})
 .attr("height", function(d,i) {return d.percentageChange * height/maxY;});
 
+
+// axes
 d3.select("svg").append("g")
 .attr("transform", "translate("+margin+","+margin+")")
 .call(d3.axisLeft(y));
@@ -40,6 +46,22 @@ d3.select("svg").append("g")
 d3.select("svg").append("g")
 .attr("transform", "translate("+margin+","+(height + margin)+")")
 .call(d3.axisBottom(x));
-}
 
+// axes labels
+d3.select("svg").append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width - 2*margin)
+    .attr("y", height+margin*2-10)
+    .text("Categories of Expenditures");
+
+d3.select("svg").append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("x", -height/4)
+    .attr("y", 0)
+    .attr("dy", ".75em")
+    .attr("transform", "rotate(-90)")
+    .text("Percentage Change in CPI from March 2020 to June 2025");
+}
 </script></html>
