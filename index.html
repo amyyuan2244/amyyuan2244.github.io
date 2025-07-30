@@ -13,9 +13,9 @@ async function init() {
 const width = 200
 const height = 200
 const margin = 50
-// var x = d3.scaleBand().domain(["all"]).range([0, width]);
+var x = d3.scaleBand().domain(["all"]).range([0, width]);
 // var x = d3.scaleBand().domain(["food", "energy", "all except food and energy"]).range([0, width]);
-// var y = d3.scaleLinear().domain([0,60]).range([height, 0]);
+var y = d3.scaleLinear().domain([0,60]).range([height, 0]); // TODO idk why 60 here but is it supposed to be the MAX?
 
 
 const data = await d3.csv('https://amyyuan2244.github.io/data.csv');
@@ -28,10 +28,10 @@ d3.select('svg')
 .data(data)
 .enter()
 .append('rect')
-.attr('x', function(d,i) { return 1000;}) // TODO
-.attr('y', function(d) { return 100;}) // TODO
-.attr("width", function(d,i ) {return i}) // TODO
-.attr("height", function(d,i) {return d}); // TODO
+.attr('x', function(d,i) { return (width * i)/6;}) // 6 at most but always do 10?
+.attr('y', function(d) { return height - (d * height/60);}) // TODO i have 60 here but it's supposed to be the MAX?
+.attr("width", function(d,i ) {return width/50}) // TODO idk why it's divided by 100
+.attr("height", function(d,i) {return d.percentageChange * height/60}); // TODO
 
 d3.select("svg").append("g")
 .attr("transform", "translate("+margin+","+margin+")")
