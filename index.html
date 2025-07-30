@@ -10,13 +10,13 @@ While it’s difficult to place an exact date on when a pandemic starts, the Wor
 <script>
 
 async function init() {
-const width = 500
-const height = 500
-const margin = 50
-const maxY = 60
-var x = d3.scaleBand().domain(["all items", "food", "energy", "all items except food and energy"]).range([0, width]);
-var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]); // TODO idk why 60 here but is it supposed to be the MAX?
-
+const width = 500;
+const height = 500;
+const margin = 50;
+const maxY = 60;
+var xCategories = ["all items", "food", "energy", "all items except food and energy"];
+var x = d3.scaleBand().domain(xCategories).range([0, width]);
+var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
 
 const data = await d3.csv('https://amyyuan2244.github.io/bigCategories.csv');
 d3.select('svg')
@@ -28,10 +28,10 @@ d3.select('svg')
 .data(data)
 .enter()
 .append('rect')
-.attr('x', function(d,i) { return (width * i)/4;}) // 6 at most but always do 10?
-.attr('y', function(d) {return (height - (d.percentageChange * height/maxY));}) // TODO i have 60 here but it's supposed to be the MAX?
-.attr("width", function(d,i ) {return width/4}) // TODO idk why it's divided by 100
-.attr("height", function(d,i) {return d.percentageChange * height/maxY}); // TODO
+.attr('x', function(d,i) { return (width * i)/xCategories.length;})
+.attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
+.attr("width", function(d,i ) {return width/xCategories.length;})
+.attr("height", function(d,i) {return d.percentageChange * height/maxY;});
 
 d3.select("svg").append("g")
 .attr("transform", "translate("+margin+","+margin+")")
