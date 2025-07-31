@@ -28,6 +28,7 @@ While it’s difficult to place an exact date on when a pandemic starts, the Wor
 
 async function init() {
 
+const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
 const data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
 
 const width = 1000;
@@ -60,7 +61,6 @@ d3.select('svg')
     .html("The CPI of " + xCategories[i] + " has changed by " + d.percentageChange + "% from March 2020 to June 2025")
 })
 .on("mouseout", function() { tooltip.style("opacity", 0)});
-
 
 // axes
 d3.select("svg").append("g")
@@ -101,5 +101,21 @@ d3.select("svg")
     .style("font-size", "16px") 
     .style("text-decoration", "underline")  
     .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
+
+// overall line CPI
+// TODO add label
+d3.select("svg")
+    .append("g")
+    .attr("transform", "translate("+margin+","+margin+")")
+    .selectAll('line')
+    .data(allData)
+    .enter()
+    .append("line")
+    .attr("x1", 0)
+    .attr("x2", width)
+    .attr("y1", function(d) {return (height - (d.percentageChange * height/maxY));})
+    .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
+    .style("stroke", "red")
+    .style("stroke-width", 1);
 }
 </script></html>
