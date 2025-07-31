@@ -37,7 +37,7 @@
 </style>
 <body onload='init()'>
 
-<svg class="chart">
+<svg id="bar" class="chart">
 </svg>
 
 <div id="tooltip"></div>
@@ -53,6 +53,7 @@
 
 
 async function init() {
+    
 
 // data
 const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
@@ -79,6 +80,8 @@ for (let i = 0; i < data.length; i++) {
     xCategories.push(data[i].expenditureCategory);
 };
 
+
+
 function prev() {
     slideNum = Math.max(slideNum-1, 1);
     // slide(slideNum);
@@ -93,6 +96,7 @@ function next() {
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 const div = document.getElementById('explanation');
+const barChart = document.getElementById('bar');
 
 // triggers
 // add event listener to the button // maybe combine these two
@@ -138,6 +142,7 @@ function changeContent() {
     </p>`;
     data = allData;
     updateX();
+    // clearChart();
     makeChart();
 
     } else if (slideNum == 2) {
@@ -151,6 +156,7 @@ function changeContent() {
 
           data = big3Data;
           updateX();
+        //   clearChart();
           makeChart();
     } else if (slideNum == 3) {
     div.innerHTML = `3`;
@@ -224,41 +230,42 @@ const height = 500;
 const margin = 50;
 const maxY = 60;
 
-    var x = d3.scaleBand().domain(xCategories).range([0, width]);
-    var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
-    var rectColor = "red"
-    var tooltip = d3.select("#tooltip");
+changeContent();
+    // var x = d3.scaleBand().domain(xCategories).range([0, width]);
+    // var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
+    // var rectColor = "red"
+    // var tooltip = d3.select("#tooltip");
 
-    d3.select('svg')
-    .attr("width", width + 2 * margin)
-    .attr("height", height + 2 * margin)
-    .append("g")
-    .attr("transform", "translate("+margin+","+margin+")")
-    .selectAll('rect')
-    .data(data)
-    .enter()
-    .append('rect')
-    .attr('x', function(d,i) { return (width * i)/xCategories.length;})
-    .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
-    .attr("width", function(d,i ) {return width/xCategories.length;})
-    .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
-    .attr("fill", rectColor)
-    .on("mouseover", function(d,i) {
-        tooltip.style("opacity", 1)
-        .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY) + "px")
-        .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
-    })
-    .on("mouseout", function() { tooltip.style("opacity", 0)});
+    // d3.select('svg')
+    // .attr("width", width + 2 * margin)
+    // .attr("height", height + 2 * margin)
+    // .append("g")
+    // .attr("transform", "translate("+margin+","+margin+")")
+    // .selectAll('rect')
+    // .data(data)
+    // .enter()
+    // .append('rect')
+    // .attr('x', function(d,i) { return (width * i)/xCategories.length;})
+    // .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
+    // .attr("width", function(d,i ) {return width/xCategories.length;})
+    // .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
+    // .attr("fill", rectColor)
+    // .on("mouseover", function(d,i) {
+    //     tooltip.style("opacity", 1)
+    //     .style("left", (d3.event.pageX) + "px")
+    //     .style("top", (d3.event.pageY) + "px")
+    //     .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
+    // })
+    // .on("mouseout", function() { tooltip.style("opacity", 0)});
 
-    // axes
-    d3.select("svg").append("g")
-    .attr("transform", "translate("+margin+","+margin+")")
-    .call(d3.axisLeft(y));
+    // // axes
+    // d3.select("svg").append("g")
+    // .attr("transform", "translate("+margin+","+margin+")")
+    // .call(d3.axisLeft(y));
 
-    d3.select("svg").append("g")
-    .attr("transform", "translate("+margin+","+(height + margin)+")")
-    .call(d3.axisBottom(x));
+    // d3.select("svg").append("g")
+    // .attr("transform", "translate("+margin+","+(height + margin)+")")
+    // .call(d3.axisBottom(x));
 
 // axes labels
 d3.select("svg")
@@ -314,6 +321,54 @@ d3.select("svg")
 //     .attr("y", (height+margin)/2 + margin)
 //     .style("fill", "red")
 // .text("overall CPI");
+
+
+
+
+
+function makeChart() {
+    barChart.innerHTML = "";
+
+    var x = d3.scaleBand().domain(xCategories).range([0, width]);
+    var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
+    var rectColor = "red"
+    var tooltip = d3.select("#tooltip");
+
+    d3.select('svg')
+    .attr("width", width + 2 * margin)
+    .attr("height", height + 2 * margin)
+    .append("g")
+    .attr("transform", "translate("+margin+","+margin+")")
+    .selectAll('rect')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('x', function(d,i) { return (width * i)/xCategories.length;})
+    .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
+    .attr("width", function(d,i ) {return width/xCategories.length;})
+    .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
+    .attr("fill", rectColor)
+    .on("mouseover", function(d,i) {
+        tooltip.style("opacity", 1)
+        .style("left", (d3.event.pageX) + "px")
+        .style("top", (d3.event.pageY) + "px")
+        .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
+    })
+    .on("mouseout", function() { tooltip.style("opacity", 0)});
+
+    // axes
+    d3.select("svg").append("g")
+    .attr("transform", "translate("+margin+","+margin+")")
+    .call(d3.axisLeft(y));
+
+    d3.select("svg").append("g")
+    .attr("transform", "translate("+margin+","+(height + margin)+")")
+    .call(d3.axisBottom(x));
+};
+
+
 }
+
+
 
 </script></html>
