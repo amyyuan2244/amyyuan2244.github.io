@@ -90,17 +90,40 @@ function slide(num){
         };
     }
     if (num == 2) {
-        
-        
+        lineShowing = true;
+        prevButtonShowing = true;
+        prevButtonShowing = true;
+        data = big3Data;
+        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
+        var xCategories = [];
+        for (let i = 0; i < data.length; i++) {
+            xCategories.push(data[i].expenditureCategory);
+        };
     }
     if (num == 3) {
-        
+        lineShowing = true;
+        prevButtonShowing = true;
+        prevButtonShowing = true;
+        data = otherBigData;
+        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
+        var xCategories = [];
+        for (let i = 0; i < data.length; i++) {
+            xCategories.push(data[i].expenditureCategory);
+        };
     }
     if (num == 4) {
-        
+        lineShowing = true;
+        prevButtonShowing = true;
+        prevButtonShowing = true;
+        data = otherSData;
+        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
+        var xCategories = [];
+        for (let i = 0; i < data.length; i++) {
+            xCategories.push(data[i].expenditureCategory);
+        };
     }
     if (num == 5) {
-        
+       // this is when the martini glass opens up idk
     }
 }
 function prev() {
