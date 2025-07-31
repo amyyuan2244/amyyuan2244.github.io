@@ -42,7 +42,6 @@
 <script>
 async function init() {
     
-
 // data
 const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
 const big3Data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
@@ -57,11 +56,12 @@ const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCate
 
 //parameters
 var slideNum = 1; // TODO set this up
-var lineShowing = false; // TODO set this up
+var lineShowing = false; // TODO set this up for martini stuff
 var prevButtonShowing = false; // TODO set this up
 var prevButtonShowing = true; // TODO set this up
 var data = allData;
-var mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
+// var mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
+var userInteraction = false; // TODO
 var xCategories = [];
 for (let i = 0; i < data.length; i++) {
     xCategories.push(data[i].expenditureCategory);
@@ -70,12 +70,10 @@ for (let i = 0; i < data.length; i++) {
 
 function prev() {
     slideNum = Math.max(slideNum-1, 1);
-    // slide(slideNum);
     changeContent();
 }
 function next() {
     slideNum = Math.min(slideNum+1, 5);
-    // slide(slideNum);
     changeContent();
 }
 
@@ -85,7 +83,7 @@ const div = document.getElementById('explanation');
 const barChart = document.getElementById('bar');
 
 // triggers
-// add event listener to the button // maybe combine these two
+// add event listener to the button
 prevButton.addEventListener('click', prev);
 nextButton.addEventListener('click', next);
 
@@ -95,7 +93,6 @@ function updateX() {
             xCategories.push(data[i].expenditureCategory);
     };
 }
-
 
 function changeContent() {
     if (slideNum == 1) {
@@ -128,6 +125,7 @@ function changeContent() {
     </p>`;
     data = allData;
     lineShowing = false;
+    userInteraction = false;
     updateX();
     makeChart();
 
@@ -142,12 +140,14 @@ function changeContent() {
 
           data = big3Data;
           lineShowing = true;
+          userInteraction = false;
           updateX();
           makeChart();
     } else if (slideNum == 3) {
     div.innerHTML = `3`;
     data = otherBigData;
     lineShowing = true;
+    userInteraction = false;
     updateX();
     makeChart();
     
@@ -156,10 +156,16 @@ function changeContent() {
     div.innerHTML = `4`;
     data = otherSData;
     lineShowing = true;
+    userInteraction = false;
     updateX();
     makeChart();
     } else {
         div.innerHTML = `5`;
+        data = allData;
+        lineShowing = false;
+        userInteraction = true;
+        updateX();
+        makeChart();
     }
     
 }
@@ -230,10 +236,10 @@ function makeChart() {
     .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
     .attr("fill", rectColor)
     .on("mouseover", function(d,i) {
-        tooltip.style("opacity", 1)
-        .style("left", (d3.event.pageX) + "px")
-        .style("top", (d3.event.pageY) + "px")
-        .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
+            tooltip.style("opacity", 1)
+            .style("left", (d3.event.pageX) + "px")
+            .style("top", (d3.event.pageY) + "px")
+            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
     })
     .on("mouseout", function() { tooltip.style("opacity", 0)});
 
