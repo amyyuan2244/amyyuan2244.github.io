@@ -127,27 +127,23 @@ function changeContent() {
     updateX();
     makeChart();
 
-    const annotations = [
-  {
+    const annotations = [{
         note: {
         label: `The overall CPI  of all goods and services increased
          by 24.96794065% from March 2020 to June 2025. `,
-        title: "Overall CPI"
+        // title: "Overall CPI",
+        bgPadding: 10,
         },
-        x: 200,
-        y: 400,
+        x: 800,
+        y: 375,
         dx: 100,
-        dy: -100
-    }
-    ]
+        dy: -100,
+    }]
 
     // Add annotation to the chart
-    const makeAnnotations = d3.annotation()
-    .annotations(annotations);
+    const makeAnnotations = d3.annotation().annotations(annotations);
 
-    d3.select("#bar")
-    .append("g")
-    .call(makeAnnotations);
+    d3.select("#bar").append("g").call(makeAnnotations);
 
     } else if (slideNum == 2) {
     div.innerHTML = `<p> The goods and services in the "market basket" used
@@ -156,13 +152,39 @@ function changeContent() {
           these categories and subcategories has their own CPI which contributes 
           to the overall CPI according to their assigned weight (referred to as its 
           "relative importance"). The relative importances of different categories 
-          and subcategories may change over time. </p>`;
+          and subcategories may change over time. The most recent relative importance
+           data available at the creation of this narrative visualization is from May
+            2025.</p>`;
 
           data = big3Data;
           lineShowing = true;
           userInteraction = false;
           updateX();
           makeChart();
+
+            const annotations = [{
+            note: {
+            label: `		
+According to the BLS, shelter is in the category of goods 
+and services excluding food and energy. 
+For this category, its CPI increased by 39.05724324% 
+from March 2020 to June 2025 and its relative importance 
+is 79.978%  as of May 2025.`,		
+            // title: "Overall CPI",
+            bgPadding: 10,
+            wrap: 200,
+            },
+            x: 750,
+            y: 375,
+            dx: 100,
+            dy: -100,
+            
+        }]
+
+        // Add annotation to the chart
+        const makeAnnotations = d3.annotation().annotations(annotations);
+
+        d3.select("#bar").append("g").call(makeAnnotations);
     } else if (slideNum == 3) {
     div.innerHTML = `3`;
     data = otherBigData;
@@ -235,7 +257,7 @@ function makeChart() {
 
     var x = d3.scaleBand().domain(xCategories).range([0, width]);
     var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
-    var rectColor = "blue"
+    var rectColor = "#2690B6"
     var tooltip = d3.select("#tooltip");
 
     d3.select('svg')
