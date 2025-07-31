@@ -34,10 +34,12 @@
     <button id="next"> Next </button>
 </div>
 
-
+<!-- add the d3-annotation library -->
+<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 
 <script>
 async function init() {
+
     
 // data
 const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
@@ -127,23 +129,24 @@ function changeContent() {
 
     const annotations = [
   {
-    note: {
-      label: "Here is the annotation label",
-      title: "Annotation title"
-    },
-    x: 100,
-    y: 100,
-    dy: 100,
-    dx: 100
-  }
-]
+        note: {
+        label: "Here is the annotation label",
+        title: "Annotation title"
+        },
+        x: 200,
+        y: 400,
+        dx: 100,
+        dy: -100
+    }
+    ]
 
-// Add annotation to the chart
-const makeAnnotations = d3.annotation()
-  .annotations(annotations)
-d3.select("#example1")
-  .append("g")
-  .call(makeAnnotations)
+    // Add annotation to the chart
+    const makeAnnotations = d3.annotation()
+    .annotations(annotations);
+
+    d3.select("#bar")
+    .append("g")
+    .call(makeAnnotations);
 
     } else if (slideNum == 2) {
     div.innerHTML = `<p> The goods and services in the "market basket" used
