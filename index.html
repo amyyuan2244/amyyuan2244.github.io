@@ -1,10 +1,23 @@
 <html>
 <script src='https://d3js.org/d3.v5.min.js'></script>
-<p>This visualization explores how the Consumer Price Index (CPI) has changed since the start of the COVID-19 pandemic.
-While it’s difficult to place an exact date on when a pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March of 2020, so this visualization will use March 2020 as the start of the pandemic. The most recent CPI data available is from June 2025. Thus, this visualization will explore how the CPI has changed from the start of the COVID-19 pandemic in March 2020 to most recently, June 2025.
+<h1>
+    Percent Changes in the Consumer Price Index (CPI) from the Start of the COIVD-19 Pandemic to Current Times
+</h1>
+<p>
+This narrative visualization seeks to examine the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic to the current times in the context of the percent change in the CPI of other categories of goods and services during this same time period.
 </p>
+<p>
+According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for and calculates the CPI, the CPI defined as a "measure of the average change over time in the prices paid by urban consumers [in the United States of America] for a market basket of consumer goods and services." The specific goods and services in this "market basket" may change over time. The CPI  tracks the month-to-month changes in the prices of those goods and services relative to their prices in a base period of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
+</p>
+<p>
+The BLS often presents data on the CPI in terms of 12-month percent changes across different categories of goods and services. Instead of a 12-month period, this narrative visualization instead explores the CPI in the time period from the start of the pandemic to current times. While it’s difficult to place an exact date on when a pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March of 2020. Hence, this narrative visualization will use March 2020 as the start of the pandemic. As of the creation of this narrative visualization, the most recent CPI data available is from June 2025. Thus, this narrative visualization will explore the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic in March 2020 to the current day in June 2025.
+</p>
+<p>
+This visualization focuses specifically on shelter during this time period because rents (and housing costs in general) spiked during the COVID pandemic, particularly in a lot of metro areas.This narrative visualization seeks to examine the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic to the current times in the context of the percent change in the CPI of other categories of goods and services during this same time period.
+</p>
+
 <style> 
-.chart rect {fill: lightblue; stroke: black; }
+.chart rect {stroke: black; }
 #tooltip {
     opacity: 0;
     position: absolute;
@@ -28,16 +41,35 @@ While it’s difficult to place an exact date on when a pandemic starts, the Wor
 
 async function init() {
 
+// data
 const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
-const data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
+const big3Data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
+const bigEnergyData = await d3.csv('https://amyyuan2244.github.io/bigEnergyCategories.csv');
+const bigFoodData = await d3.csv('https://amyyuan2244.github.io/bigFoodCategories.csv');
+const energyCData = await d3.csv('https://amyyuan2244.github.io/energyCommoditiesCategories.csv');
+const energySData = await d3.csv('https://amyyuan2244.github.io/energyServicesCategories.csv');
+const foodData = await d3.csv('https://amyyuan2244.github.io/foodAtHomeCategories.csv');
+const otherBigData = await d3.csv('https://amyyuan2244.github.io/otherBigCategories.csv');
+const otherCData = await d3.csv('https://amyyuan2244.github.io/otherCommoditiesCategories.csv');
+const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCategories.csv');
+
+
+//parameters
+var slideNum = 1;
+var lineShowing = false;
+var data = allData;
+
+
 
 const width = 1000;
 const height = 500;
 const margin = 50;
 const maxY = 60;
-var xCategories = ["food", "energy", "goods and services excluding food and energy"];
+// var xCategories = ["food", "energy", "goods and services excluding food and energy"];
+var xCategories = ["All Goods and Services"];
 var x = d3.scaleBand().domain(xCategories).range([0, width]);
 var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
+var rectColor = "red"
 
 var tooltip = d3.select("#tooltip");
 
@@ -54,11 +86,12 @@ d3.select('svg')
 .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
 .attr("width", function(d,i ) {return width/xCategories.length;})
 .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
+.attr("fill", rectColor)
 .on("mouseover", function(d,i) {
     tooltip.style("opacity", 1)
     .style("left", (d3.event.pageX) + "px")
     .style("top", (d3.event.pageY) + "px")
-    .html("The CPI of " + xCategories[i] + " has changed by " + d.percentageChange + "% from March 2020 to June 2025")
+    .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
 })
 .on("mouseout", function() { tooltip.style("opacity", 0)});
 
@@ -102,8 +135,7 @@ d3.select("svg")
     .style("text-decoration", "underline")  
     .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
 
-// overall line CPI
-// TODO add label
+// overall CPI line
 d3.select("svg")
     .append("g")
     .attr("transform", "translate("+margin+","+margin+")")
@@ -117,5 +149,25 @@ d3.select("svg")
     .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
     .style("stroke", "red")
     .style("stroke-width", 1);
+    // .append("text")
+    // .attr("x", (width/2))
+    // .attr("y", 100)
+    // // // .attr("y", function(d) {return (height - (d.percentageChange * height/maxY));})
+    // // // .attr("text-anchor", "middle")  
+    // // // .style("font-size", "16px") 
+    // .text("overall CPI")
+
+
+// MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs
+d3.select("svg")
+    .append("text")
+    .attr("x", width - margin)
+    .attr("y", (height+margin)/2 + margin)
+    // .attr("y", function(d) {return (height - (d.percentageChange * height/maxY));})
+    // .attr("text-anchor", "middle")  
+    // .style("font-size", "16px") 
+    .style("fill", "red")
+.text("overall CPI");
 }
+
 </script></html>
