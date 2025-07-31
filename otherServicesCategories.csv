@@ -1,4 +1,4 @@
-﻿expenditureCategory,pandemic,now,percentageChange
-Shelter,324.615,415.455,27.98391941
-Medical care services,557.889,633.659,13.58155475
-Transportation services,321.61,447.222,39.05724324
+﻿expenditureCategory,pandemic,now,percentageChange,relativeImportance
+Shelter,324.615,415.455,27.98391941,35.473
+Medical care services,557.889,633.659,13.58155475,6.736
+Transportation services,321.61,447.222,39.05724324,6.303

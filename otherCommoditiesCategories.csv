@@ -1,7 +1,7 @@
-﻿expenditureCategory,pandemic,now,percentageChange
-Apparel,123.815,130.844,5.677018132
-New vehicles,147.124,178.443,21.28748539
-Used cars and trucks,140.689,186.671,32.68343652
-Medical care commodities(1),384.498,417.575,8.602645527
-Alcoholic beverages(1),255.66,294.883,15.34186028
-Tobacco and smoking products(1),1162.66,1638.792,40.951955
+﻿expenditureCategory,pandemic,now,percentageChange,relativeImportance
+Apparel,123.815,130.844,5.677018132,2.509
+New vehicles,147.124,178.443,21.28748539,4.341
+Used cars and trucks,140.689,186.671,32.68343652,2.398
+Medical care commodities(1),384.498,417.575,8.602645527,1.516
+Alcoholic beverages(1),255.66,294.883,15.34186028,0.827
+Tobacco and smoking products(1),1162.66,1638.792,40.951955,0.486

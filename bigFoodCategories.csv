@@ -1,3 +1,3 @@
-﻿expenditureCategory,pandemic,now,percentageChange
-Food at home,245.163,313.028,27.68158327
-Food away from home(1),290.216,382.75,31.88452739
+﻿expenditureCategory,pandemic,now,percentageChange,relativeImportance
+Food at home,245.163,313.028,27.68158327,8.001
+Food away from home(1),290.216,382.75,31.88452739,5.642

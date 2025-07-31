@@ -1,7 +1,7 @@
-﻿expenditureCategory,pandemic,now,percentageChange
-Cereals and bakery products,277.646,360.04,29.6759183
-"Meats, poultry, fish, and eggs",254.724,342.058,34.2857367
-Dairy and related products(1),225.627,270.626,19.9439783
-Fruits and vegetables,299.641,351.414,17.2783431
-Nonalcoholic beverages and beverage materials,174.454,229.103,31.3257363
-Other food at home,214.565,277.737,29.4418941
+﻿expenditureCategory,pandemic,now,percentageChange,relativeImportance
+Cereals and bakery products,277.646,360.04,29.6759183,1.101
+"Meats, poultry, fish, and eggs",254.724,342.058,34.2857367,1.636
+Dairy and related products(1),225.627,270.626,19.9439783,0.728
+Fruits and vegetables,299.641,351.414,17.2783431,1.304
+Nonalcoholic beverages and beverage materials,174.454,229.103,31.3257363,0.902
+Other food at home,214.565,277.737,29.4418941,2.331
