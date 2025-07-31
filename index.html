@@ -44,14 +44,14 @@
 
 <br />
 
-<button id="prev"> Prev </button>
-<button id="next"> Next </button>
+<div id="buttons">
+    <button id="prev"> Prev </button>
+    <button id="next"> Next </button>
+</div>
+
 
 
 <script>
-
-
-
 async function init() {
     
 
@@ -69,7 +69,6 @@ const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCate
 
 //parameters
 var slideNum = 1; // TODO set this up
-    // this changes the text that's showing
 var lineShowing = false; // TODO set this up
 var prevButtonShowing = false; // TODO set this up
 var prevButtonShowing = true; // TODO set this up
@@ -79,7 +78,6 @@ var xCategories = [];
 for (let i = 0; i < data.length; i++) {
     xCategories.push(data[i].expenditureCategory);
 };
-
 
 
 function prev() {
@@ -141,8 +139,8 @@ function changeContent() {
          of goods and services during this same time period.
     </p>`;
     data = allData;
+    lineShowing = false;
     updateX();
-    // clearChart();
     makeChart();
 
     } else if (slideNum == 2) {
@@ -155,14 +153,23 @@ function changeContent() {
           and subcategories may change over time. </p>`;
 
           data = big3Data;
+          lineShowing = true;
           updateX();
-        //   clearChart();
           makeChart();
     } else if (slideNum == 3) {
     div.innerHTML = `3`;
+    data = otherBigData;
+    lineShowing = true;
+    updateX();
+    makeChart();
+    
     }
     else if (slideNum == 4) {
     div.innerHTML = `4`;
+    data = otherSData;
+    lineShowing = true;
+    updateX();
+    makeChart();
     } else {
         div.innerHTML = `5`;
     }
@@ -171,58 +178,7 @@ function changeContent() {
 
 
 
-
-
-
-function slide(num){
-    if (num == 1) {
-        lineShowing = false;
-        prevButtonShowing = false;
-        prevButtonShowing = true;
-        data = allData;
-        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
-        var xCategories = [];
-        for (let i = 0; i < data.length; i++) {
-            xCategories.push(data[i].expenditureCategory);
-        };
-    }
-    if (num == 2) {
-        lineShowing = true;
-        prevButtonShowing = true;
-        prevButtonShowing = true;
-        data = big3Data;
-        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
-        var xCategories = [];
-        for (let i = 0; i < data.length; i++) {
-            xCategories.push(data[i].expenditureCategory);
-        };
-    }
-    if (num == 3) {
-        lineShowing = true;
-        prevButtonShowing = true;
-        prevButtonShowing = true;
-        data = otherBigData;
-        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
-        var xCategories = [];
-        for (let i = 0; i < data.length; i++) {
-            xCategories.push(data[i].expenditureCategory);
-        };
-    }
-    if (num == 4) {
-        lineShowing = true;
-        prevButtonShowing = true;
-        prevButtonShowing = true;
-        data = otherSData;
-        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
-        var xCategories = [];
-        for (let i = 0; i < data.length; i++) {
-            xCategories.push(data[i].expenditureCategory);
-        };
-    }
-    if (num == 5) {
-       // this is when the martini glass opens up idk
-    }
-}
+ 
 
 // set up the chart itself
 const width = 1000;
@@ -231,41 +187,6 @@ const margin = 50;
 const maxY = 60;
 
 changeContent();
-    // var x = d3.scaleBand().domain(xCategories).range([0, width]);
-    // var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
-    // var rectColor = "red"
-    // var tooltip = d3.select("#tooltip");
-
-    // d3.select('svg')
-    // .attr("width", width + 2 * margin)
-    // .attr("height", height + 2 * margin)
-    // .append("g")
-    // .attr("transform", "translate("+margin+","+margin+")")
-    // .selectAll('rect')
-    // .data(data)
-    // .enter()
-    // .append('rect')
-    // .attr('x', function(d,i) { return (width * i)/xCategories.length;})
-    // .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
-    // .attr("width", function(d,i ) {return width/xCategories.length;})
-    // .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
-    // .attr("fill", rectColor)
-    // .on("mouseover", function(d,i) {
-    //     tooltip.style("opacity", 1)
-    //     .style("left", (d3.event.pageX) + "px")
-    //     .style("top", (d3.event.pageY) + "px")
-    //     .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
-    // })
-    // .on("mouseout", function() { tooltip.style("opacity", 0)});
-
-    // // axes
-    // d3.select("svg").append("g")
-    // .attr("transform", "translate("+margin+","+margin+")")
-    // .call(d3.axisLeft(y));
-
-    // d3.select("svg").append("g")
-    // .attr("transform", "translate("+margin+","+(height + margin)+")")
-    // .call(d3.axisBottom(x));
 
 // axes labels
 d3.select("svg")
@@ -298,40 +219,12 @@ d3.select("svg")
     .style("text-decoration", "underline")  
     .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
 
-// // overall CPI line
-// d3.select("svg")
-//     .append("g")
-//     .attr("transform", "translate("+margin+","+margin+")")
-//     .selectAll('line')
-//     .data(allData)
-//     .enter()
-//     .append("line")
-//     .attr("x1", 0)
-//     .attr("x2", width)
-//     .attr("y1", function(d) {return (height - (d.percentageChange * height/maxY));})
-//     .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
-//     .style("stroke", "red")
-//     .style("stroke-width", 1);
-
-
-// // MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs see OneNote
-// d3.select("svg")
-//     .append("text")
-//     .attr("x", width - margin)
-//     .attr("y", (height+margin)/2 + margin)
-//     .style("fill", "red")
-// .text("overall CPI");
-
-
-
-
-
 function makeChart() {
     barChart.innerHTML = "";
 
     var x = d3.scaleBand().domain(xCategories).range([0, width]);
     var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
-    var rectColor = "red"
+    var rectColor = "blue"
     var tooltip = d3.select("#tooltip");
 
     d3.select('svg')
@@ -364,6 +257,32 @@ function makeChart() {
     d3.select("svg").append("g")
     .attr("transform", "translate("+margin+","+(height + margin)+")")
     .call(d3.axisBottom(x));
+
+    if (lineShowing) {
+        // overall CPI line
+        d3.select("svg")
+            .append("g")
+            .attr("transform", "translate("+margin+","+margin+")")
+            .selectAll('line')
+            .data(allData)
+            .enter()
+            .append("line")
+            .attr("x1", 0)
+            .attr("x2", width)
+            .attr("y1", function(d) {return (height - (d.percentageChange * height/maxY));})
+            .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
+            .style("stroke", "red")
+            .style("stroke-width", 1);
+
+
+        // MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs see OneNote
+        d3.select("svg")
+            .append("text")
+            .attr("x", width - margin)
+            .attr("y", (height+margin)/2 + margin)
+            .style("fill", "red")
+        .text("overall CPI");
+    }
 };
 
 
