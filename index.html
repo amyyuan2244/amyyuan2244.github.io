@@ -236,7 +236,13 @@ function makeChart() {
     .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
     .attr("fill", rectColor)
     .on("mouseover", function(d,i) {
-            tooltip.style("opacity", 1)
+       var toolTipO = 0;
+        if (userInteraction) {
+            toolTipO = 1;
+        } else {
+            toolTipO = 0;
+        };
+        tooltip.style("opacity", toolTipO)
             .style("left", (d3.event.pageX) + "px")
             .style("top", (d3.event.pageY) + "px")
             .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
