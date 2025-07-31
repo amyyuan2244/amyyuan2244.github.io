@@ -79,12 +79,12 @@ for (let i = 0; i < data.length; i++) {
 };
 
 function prev() {
-    slideNum--;
+    slideNum = Math.max(slideNum-1, 1);
     // slide(slideNum);
     changeContent();
 }
 function next() {
-    slideNum++;
+    slideNum = Math.min(slideNum+1, 5);
     // slide(slideNum);
     changeContent();
 }
@@ -92,6 +92,12 @@ function next() {
 const prevButton = document.getElementById('prev');
 const nextButton = document.getElementById('next');
 const div = document.getElementById('explanation');
+
+// triggers
+// add event listener to the button // maybe combine these two
+prevButton.addEventListener('click', prev);
+nextButton.addEventListener('click', next);
+
 
 function changeContent() {
     if (slideNum == 1) {
@@ -132,22 +138,17 @@ function changeContent() {
           "relative importance"). The relative importances of different categories 
           and subcategories may change over time. </p>`;
     } else if (slideNum == 3) {
-    div.innerHTML = ``;
+    div.innerHTML = `3`;
     }
     else if (slideNum == 4) {
-    div.innerHTML = ``;
+    div.innerHTML = `4`;
     } else {
-        div.innerHTML = ``;
+        div.innerHTML = `5`;
     }
     
 }
 
 
-
-// triggers
-// add event listener to the button // maybe combine these two
-prevButton.addEventListener('click', prev);
-nextButton.addEventListener('click', next);
 
 
 
