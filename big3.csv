@@ -1,4 +1,4 @@
 ﻿expenditureCategory,pandemic,now,percentageChange,relativeImportance
-Food,262.708,339.498,29.2301719,13.644
-Energy,199.573,284.307,42.45764708,6.379
-All items less food and energy,267.312,328.364,22.83922907,79.978
+food,262.708,339.498,29.2301719,13.644
+energy,199.573,284.307,42.45764708,6.379
+commodities and services excluding food and energy,267.312,328.364,22.83922907,79.978
