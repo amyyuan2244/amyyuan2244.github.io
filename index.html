@@ -3,18 +3,20 @@
 <h1>
     Percent Changes in the Consumer Price Index (CPI) from the Start of the COIVD-19 Pandemic to Current Times
 </h1>
-<p>
-This narrative visualization seeks to examine the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic to the current times in the context of the percent change in the CPI of other categories of goods and services during this same time period.
-</p>
-<p>
-According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for and calculates the CPI, the CPI defined as a "measure of the average change over time in the prices paid by urban consumers [in the United States of America] for a market basket of consumer goods and services." The specific goods and services in this "market basket" may change over time. The CPI  tracks the month-to-month changes in the prices of those goods and services relative to their prices in a base period of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
-</p>
-<p>
-The BLS often presents data on the CPI in terms of 12-month percent changes across different categories of goods and services. Instead of a 12-month period, this narrative visualization instead explores the CPI in the time period from the start of the pandemic to current times. While it’s difficult to place an exact date on when a pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March of 2020. Hence, this narrative visualization will use March 2020 as the start of the pandemic. As of the creation of this narrative visualization, the most recent CPI data available is from June 2025. Thus, this narrative visualization will explore the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic in March 2020 to the current day in June 2025.
-</p>
-<p>
-This visualization focuses specifically on shelter during this time period because rents (and housing costs in general) spiked during the COVID pandemic, particularly in a lot of metro areas.This narrative visualization seeks to examine the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic to the current times in the context of the percent change in the CPI of other categories of goods and services during this same time period.
-</p>
+<div id="explanation">
+    <p>
+    This narrative visualization seeks to examine the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic to the current times in the context of the percent change in the CPI of other categories of goods and services during this same time period.
+    <br>
+    <br>
+    According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for and calculates the CPI, the CPI defined as a "measure of the average change over time in the prices paid by urban consumers [in the United States of America] for a market basket of consumer goods and services." The specific goods and services in this "market basket" may change over time. The CPI  tracks the month-to-month changes in the prices of those goods and services relative to their prices in a base period of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
+    <br>
+    <br>
+    The BLS often presents data on the CPI in terms of 12-month percent changes across different categories of goods and services. Instead of a 12-month period, this narrative visualization instead explores the CPI in the time period from the start of the pandemic to current times. While it’s difficult to place an exact date on when a pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March of 2020. Hence, this narrative visualization will use March 2020 as the start of the pandemic. As of the creation of this narrative visualization, the most recent CPI data available is from June 2025. Thus, this narrative visualization will explore the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic in March 2020 to the current day in June 2025.
+    <br>
+    <br>
+    This visualization focuses specifically on shelter during this time period because rents (and housing costs in general) spiked during the COVID pandemic, particularly in a lot of metro areas.This narrative visualization seeks to examine the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic to the current times in the context of the percent change in the CPI of other categories of goods and services during this same time period.
+    </p>
+</div>
 
 <style> 
 .chart rect {stroke: black; }
@@ -42,8 +44,9 @@ This visualization focuses specifically on shelter during this time period becau
 
 <br />
 
-<button id="prev" onclick = prev()> Prev </button>
-<button id="next" onclick = next()> Next </button>
+<button id="prev"> Prev </button>
+<button id="next"> Next </button>
+
 
 <script>
 
@@ -75,8 +78,80 @@ for (let i = 0; i < data.length; i++) {
     xCategories.push(data[i].expenditureCategory);
 };
 
+function prev() {
+    slideNum--;
+    // slide(slideNum);
+    changeContent();
+}
+function next() {
+    slideNum++;
+    // slide(slideNum);
+    changeContent();
+}
+
+const prevButton = document.getElementById('prev');
+const nextButton = document.getElementById('next');
+const div = document.getElementById('explanation');
+
+function changeContent() {
+    if (slideNum == 1) {
+        div.innerHTML = `<p>This narrative visualization seeks to examine the percent change
+             in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic 
+             to the current times in the context of the percent change in the CPI of other categories
+              of goods and services during this same time period.<br> <br>
+    According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for 
+    and calculates the CPI, the CPI defined as a "measure of the average change over
+    time in the prices paid by urban consumers [in the United States of America] 
+    for a market basket of consumer goods and services." The specific goods and services
+     in this "market basket" may change over time. The CPI  tracks the month-to-month changes 
+     in the prices of those goods and services relative to their prices in a base period 
+     of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
+    <br> <br> The BLS often presents data on the CPI in terms of 12-month percent 
+    changes across different categories of goods and services. Instead of a 12-month period,
+     this narrative visualization instead explores the CPI in the time period from the start 
+     of the pandemic to current times. While it’s difficult to place an exact date on when a 
+     pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March 
+     of 2020. Hence, this narrative visualization will use March 2020 as the start of the pandemic. 
+     As of the creation of this narrative visualization, the most recent CPI data available is from 
+     June 2025. Thus, this narrative visualization will explore the percent change in the Consumer 
+     Price Index (CPI) of shelter from the start of the COVID-19 pandemic in March 2020 to the current
+      day in June 2025. <br> <br> This visualization focuses specifically on shelter during 
+      this time period because rents (and housing costs in general) spiked during the COVID 
+      pandemic, particularly in a lot of metro areas.This narrative visualization seeks to examine
+       the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19
+        pandemic to the current times in the context of the percent change in the CPI of other categories
+         of goods and services during this same time period.
+    </p>`;
+
+    } else if (slideNum == 2) {
+    div.innerHTML = `<p> The goods and services in the "market basket" used
+         the calculate the overall CPI are divided into categories (e.g., food)
+          and further divided into smaller and smaller sub-categories. Each of 
+          these categories and subcategories has their own CPI which contributes 
+          to the overall CPI according to their assigned weight (referred to as its 
+          "relative importance"). The relative importances of different categories 
+          and subcategories may change over time. </p>`;
+    } else if (slideNum == 3) {
+    div.innerHTML = ``;
+    }
+    else if (slideNum == 4) {
+    div.innerHTML = ``;
+    } else {
+        div.innerHTML = ``;
+    }
+    
+}
+
+
 
 // triggers
+// add event listener to the button // maybe combine these two
+prevButton.addEventListener('click', prev);
+nextButton.addEventListener('click', next);
+
+
+
+
 function slide(num){
     if (num == 1) {
         lineShowing = false;
@@ -126,15 +201,8 @@ function slide(num){
        // this is when the martini glass opens up idk
     }
 }
-function prev() {
-    slideNum--;
-    slide(slideNum);
-}
-function next() {
-    slideNum++;
-    slide(slideNum);
-}
 
+// set up the chart itself
 const width = 1000;
 const height = 500;
 const margin = 50;
