@@ -125,6 +125,26 @@ function changeContent() {
     updateX();
     makeChart();
 
+    const annotations = [
+  {
+    note: {
+      label: "Here is the annotation label",
+      title: "Annotation title"
+    },
+    x: 100,
+    y: 100,
+    dy: 100,
+    dx: 100
+  }
+]
+
+// Add annotation to the chart
+const makeAnnotations = d3.annotation()
+  .annotations(annotations)
+d3.select("#example1")
+  .append("g")
+  .call(makeAnnotations)
+
     } else if (slideNum == 2) {
     div.innerHTML = `<p> The goods and services in the "market basket" used
          the calculate the overall CPI are divided into categories (e.g., food)
@@ -195,18 +215,19 @@ d3.select("svg")
     .style("font-size", "14px") 
     .text("Percentage Change in CPI from March 2020 to June 2025");
 
-// chart title
-d3.select("svg")
-    .append("text")
-    .attr("x", (width/2 + margin))             
-    .attr("y", (margin/ 2))
-    .attr("text-anchor", "middle")  
-    .style("font-size", "16px") 
-    .style("text-decoration", "underline")  
-    .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
-
 function makeChart() {
     barChart.innerHTML = "";
+
+    // chart title
+    d3.select("svg")
+        .append("text")
+        .attr("x", (width/2 + margin))             
+        .attr("y", (margin/ 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .style("text-decoration", "underline")  
+        .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
+
 
     var x = d3.scaleBand().domain(xCategories).range([0, width]);
     var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
