@@ -29,6 +29,9 @@ This visualization focuses specifically on shelter during this time period becau
     background: white;
     border: 0px;
 }
+/* MAYBE TODO: style the buttons idc */
+/* .button { 
+} */
 </style>
 <body onload='init()'>
 
@@ -36,6 +39,12 @@ This visualization focuses specifically on shelter during this time period becau
 </svg>
 
 <div id="tooltip"></div>
+
+<br />
+
+<button id="prev" onclick = prev()> Prev </button>
+<button id="next" onclick = next()> Next </button>
+
 <script>
 
 
@@ -55,13 +64,53 @@ const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCate
 
 //parameters
 var slideNum = 1; // TODO set this up
+    // this changes the text that's showing
 var lineShowing = false; // TODO set this up
+var prevButtonShowing = false; // TODO set this up
+var prevButtonShowing = true; // TODO set this up
 var data = allData;
-var mouseoverOn = false; // TODO set this up
+var mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
 var xCategories = [];
 for (let i = 0; i < data.length; i++) {
     xCategories.push(data[i].expenditureCategory);
 };
+
+
+// triggers
+function slide(num){
+    if (num == 1) {
+        lineShowing = false;
+        prevButtonShowing = false;
+        prevButtonShowing = true;
+        data = allData;
+        mouseoverOn = false; // TODO set this up // First ask if this is okay in MG?
+        var xCategories = [];
+        for (let i = 0; i < data.length; i++) {
+            xCategories.push(data[i].expenditureCategory);
+        };
+    }
+    if (num == 2) {
+        
+        
+    }
+    if (num == 3) {
+        
+    }
+    if (num == 4) {
+        
+    }
+    if (num == 5) {
+        
+    }
+}
+function prev() {
+    slideNum--;
+    slide(slideNum);
+}
+function next() {
+    slideNum++;
+    slide(slideNum);
+}
 
 const width = 1000;
 const height = 500;
@@ -70,7 +119,6 @@ const maxY = 60;
 var x = d3.scaleBand().domain(xCategories).range([0, width]);
 var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
 var rectColor = "red"
-
 var tooltip = d3.select("#tooltip");
 
 d3.select('svg')
@@ -135,39 +183,29 @@ d3.select("svg")
     .style("text-decoration", "underline")  
     .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
 
-// overall CPI line
-d3.select("svg")
-    .append("g")
-    .attr("transform", "translate("+margin+","+margin+")")
-    .selectAll('line')
-    .data(allData)
-    .enter()
-    .append("line")
-    .attr("x1", 0)
-    .attr("x2", width)
-    .attr("y1", function(d) {return (height - (d.percentageChange * height/maxY));})
-    .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
-    .style("stroke", "red")
-    .style("stroke-width", 1);
-    // .append("text")
-    // .attr("x", (width/2))
-    // .attr("y", 100)
-    // // // .attr("y", function(d) {return (height - (d.percentageChange * height/maxY));})
-    // // // .attr("text-anchor", "middle")  
-    // // // .style("font-size", "16px") 
-    // .text("overall CPI")
+// // overall CPI line
+// d3.select("svg")
+//     .append("g")
+//     .attr("transform", "translate("+margin+","+margin+")")
+//     .selectAll('line')
+//     .data(allData)
+//     .enter()
+//     .append("line")
+//     .attr("x1", 0)
+//     .attr("x2", width)
+//     .attr("y1", function(d) {return (height - (d.percentageChange * height/maxY));})
+//     .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
+//     .style("stroke", "red")
+//     .style("stroke-width", 1);
 
 
-// MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs
-d3.select("svg")
-    .append("text")
-    .attr("x", width - margin)
-    .attr("y", (height+margin)/2 + margin)
-    // .attr("y", function(d) {return (height - (d.percentageChange * height/maxY));})
-    // .attr("text-anchor", "middle")  
-    // .style("font-size", "16px") 
-    .style("fill", "red")
-.text("overall CPI");
+// // MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs see OneNote
+// d3.select("svg")
+//     .append("text")
+//     .attr("x", width - margin)
+//     .attr("y", (height+margin)/2 + margin)
+//     .style("fill", "red")
+// .text("overall CPI");
 }
 
 </script></html>
