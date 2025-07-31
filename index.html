@@ -4,6 +4,7 @@
 While it’s difficult to place an exact date on when a pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March of 2020, so this visualization will use March 2020 as the start of the pandemic. The most recent CPI data available is from June 2025. Thus, this visualization will explore how the CPI has changed from the start of the COVID-19 pandemic in March 2020 to most recently, June 2025.
 </p>
 <style> rect {fill: lightblue; stroke: black; }</style>
+<div name="tooltip"></div>
 <body onload='init()'>
 <svg>
 </svg>
@@ -35,7 +36,14 @@ d3.select('svg')
 .attr('x', function(d,i) { return (width * i)/xCategories.length;})
 .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
 .attr("width", function(d,i ) {return width/xCategories.length;})
-.attr("height", function(d,i) {return d.percentageChange * height/maxY;});
+.attr("height", function(d,i) {return d.percentageChange * height/maxY;})
+.on("mouseover", function(d,i) {
+    tooltip.style("opacity", 1)
+    .style("left", (d3.event.pageX) + "px")
+    .style("top", (d3.event.pageY) + "px")
+    .html("The CPI of " + xCategories[i] + "has changed by " + d.percentageChange + "% from March 2020 to June 2025")
+})
+.on("mouseout"), function() {tooltip.style("opacity", 0)};
 
 
 // axes
