@@ -93,7 +93,7 @@
             for a market basket of consumer commodities and services." The specific commodities and services
             in this "market basket" may change over time. The CPI  tracks the month-to-month changes 
             in the prices of those commodities and services relative to their prices in a base period 
-            of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
+            of time in the 1980s. The exact base year used to calculate the CPI varies by the commodity/service.
             <br> <br> The BLS often presents data on the CPI in terms of 12-month percent 
             changes across different categories of commodities and services. Instead of a 12-month period,
             this narrative visualization instead explores the CPI in the time period from the start 
@@ -211,7 +211,7 @@
                 else if (slideNum == 4) {
                     div.innerHTML = `As we can see in the chart, the CPI of shelter 
                     increased by 27.9839194%  from March 2020 to June 2025. In comparison,
-                     the overall CPI  of all goods and services increased by 24.96794065%
+                     the overall CPI  of all commodities and services increased by 24.96794065%
                       from March 2020 to June 2025. Thus the CPI of shelter increased more 
                       than the overall CPI since the beginning of the COVID-19 pandemic.
                       <br> <br> 
@@ -254,16 +254,16 @@
                     d3.select("#bar").append("g").call(makeAnnotations);
                 } else {
                     div.innerHTML = `Use the chart below examine the percent change
-                     in the Consumer Price Index (CPI) of various categories of goods
+                     in the Consumer Price Index (CPI) of various categories of commodities
                       and services from the start of the COVID-19 pandemic to the current 
                       times in the context of the percent change in the CPI of other 
-                      categories of goods and services during this same time period in
+                      categories of commodities and services during this same time period in
                        the bar chart below.
                        <br><br>
                        Click on a category's corresponding bar to drill down and examine 
                        the CPI of its subcategories. Once you've reached the chart's furthest 
                        level of detail in terms of subcategories, clicking on a bar again will 
-                       return you to the highest level of detail (all goods and services).
+                       return you to the highest level of detail (all commodities and services).
                        <br><br>
                        Mouseover a category's corresponding bar to see the details of its 
                        relative importance and its specific percentage change from March 2020 to June 2025.`;
@@ -308,7 +308,7 @@
                 .text("Percentage Change in CPI from March 2020 to June 2025");
 
             const drillDown = {
-                "all goods and services": big3Data,
+                "all commodities and services": big3Data,
                 "food": bigFoodData,
                 "energy": bigEnergyData,
                 "commodities and services excluding food and energy": otherBigData,
