@@ -6,147 +6,150 @@
 <div id="explanation">
 </div>
 
-<style> 
-.chart rect {stroke: black; }
-#tooltip {
-    opacity: 0;
-    position: absolute;
-    text-align: center;
-    padding: 10px;
-    background: white;
-    border: 0px;
-}
-/* MAYBE TODO: style the buttons idc */
-/* .button { 
+<style>
+    .chart rect {
+        stroke: black;
+    }
+
+    #tooltip {
+        opacity: 0;
+        position: absolute;
+        text-align: center;
+        padding: 10px;
+        background: white;
+        border: 0px;
+    }
+
+    /* MAYBE TODO: style the buttons idc */
+    /* .button { 
 } */
 </style>
+
 <body onload='init()'>
 
-<svg id="bar" class="chart">
-</svg>
+    <svg id="bar" class="chart">
+    </svg>
 
-<div id="tooltip"></div>
+    <div id="tooltip"></div>
 
-<br />
+    <br />
 
-<div id="buttons">
-    <button id="prev"> Prev </button>
-    <button id="next"> Next </button>
-</div>
+    <div id="buttons">
+        <button id="prev"> Prev </button>
+        <button id="next"> Next </button>
+    </div>
 
-<!-- add the d3-annotation library -->
-<script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
+    <!-- add the d3-annotation library -->
+    <script src="https://rawgit.com/susielu/d3-annotation/master/d3-annotation.min.js"></script>
 
-<script>
-async function init() {
-
-    
-// data
-const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
-const big3Data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
-const bigEnergyData = await d3.csv('https://amyyuan2244.github.io/bigEnergyCategories.csv');
-const bigFoodData = await d3.csv('https://amyyuan2244.github.io/bigFoodCategories.csv');
-const energyCData = await d3.csv('https://amyyuan2244.github.io/energyCommoditiesCategories.csv');
-const energySData = await d3.csv('https://amyyuan2244.github.io/energyServicesCategories.csv');
-const foodData = await d3.csv('https://amyyuan2244.github.io/foodAtHomeCategories.csv');
-const otherBigData = await d3.csv('https://amyyuan2244.github.io/otherBigCategories.csv');
-const otherCData = await d3.csv('https://amyyuan2244.github.io/otherCommoditiesCategories.csv');
-const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCategories.csv');
-
-//parameters
-var slideNum = 1; // TODO set this up
-var lineShowing = false; // TODO set this up for martini stuff
-var prevButtonShowing = false; // TODO set this up
-var prevButtonShowing = true; // TODO set this up
-var data = allData;
-var userInteraction = false; // TODO
-var xCategories = [];
-for (let i = 0; i < data.length; i++) {
-    xCategories.push(data[i].expenditureCategory);
-};
+    <script>
+        async function init() {
 
 
-function prev() {
-    slideNum = Math.max(slideNum-1, 1);
-    changeContent();
-}
-function next() {
-    slideNum = Math.min(slideNum+1, 5);
-    changeContent();
-}
+            // data
+            const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
+            const big3Data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
+            const bigEnergyData = await d3.csv('https://amyyuan2244.github.io/bigEnergyCategories.csv');
+            const bigFoodData = await d3.csv('https://amyyuan2244.github.io/bigFoodCategories.csv');
+            const energyCData = await d3.csv('https://amyyuan2244.github.io/energyCommoditiesCategories.csv');
+            const energySData = await d3.csv('https://amyyuan2244.github.io/energyServicesCategories.csv');
+            const foodData = await d3.csv('https://amyyuan2244.github.io/foodAtHomeCategories.csv');
+            const otherBigData = await d3.csv('https://amyyuan2244.github.io/otherBigCategories.csv');
+            const otherCData = await d3.csv('https://amyyuan2244.github.io/otherCommoditiesCategories.csv');
+            const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCategories.csv');
 
-const prevButton = document.getElementById('prev');
-const nextButton = document.getElementById('next');
-const div = document.getElementById('explanation');
-const barChart = document.getElementById('bar');
+            //parameters
+            var slideNum = 1; // TODO set this up
+            var lineShowing = false; // TODO set this up for martini stuff
+            var prevButtonShowing = false; // TODO set this up
+            var prevButtonShowing = true; // TODO set this up
+            var data = allData;
+            var userInteraction = false; // TODO
+            var xCategories = [];
+            for (let i = 0; i < data.length; i++) {
+                xCategories.push(data[i].expenditureCategory);
+            };
 
-// triggers
-// add event listener to the button
-prevButton.addEventListener('click', prev);
-nextButton.addEventListener('click', next);
 
-function updateX() {
-    xCategories = [];
-    for (let i = 0; i < data.length; i++) {
-            xCategories.push(data[i].expenditureCategory);
-    };
-}
+            function prev() {
+                slideNum = Math.max(slideNum - 1, 1);
+                changeContent();
+            }
+            function next() {
+                slideNum = Math.min(slideNum + 1, 5);
+                changeContent();
+            }
 
-function changeContent() {
-    if (slideNum == 1) {
-        div.innerHTML = `<p>This narrative visualization seeks to examine the percent change
+            const prevButton = document.getElementById('prev');
+            const nextButton = document.getElementById('next');
+            const div = document.getElementById('explanation');
+            const barChart = document.getElementById('bar');
+
+            // triggers
+            prevButton.addEventListener('click', prev);
+            nextButton.addEventListener('click', next);
+
+            function updateX() {
+                xCategories = [];
+                for (let i = 0; i < data.length; i++) {
+                    xCategories.push(data[i].expenditureCategory);
+                };
+            }
+
+            function changeContent() {
+                if (slideNum == 1) {
+                    div.innerHTML = `<p>This narrative visualization seeks to examine the percent change
              in the Consumer Price Index (CPI) of shelter from the start of the COVID-19 pandemic 
              to the current times in the context of the percent change in the CPI of other categories
               of goods and services during this same time period.<br> <br>
-    According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for 
-    and calculates the CPI, the CPI defined as a "measure of the average change over
-    time in the prices paid by urban consumers [in the United States of America] 
-    for a market basket of consumer goods and services." The specific goods and services
-     in this "market basket" may change over time. The CPI  tracks the month-to-month changes 
-     in the prices of those goods and services relative to their prices in a base period 
-     of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
-    <br> <br> The BLS often presents data on the CPI in terms of 12-month percent 
-    changes across different categories of goods and services. Instead of a 12-month period,
-     this narrative visualization instead explores the CPI in the time period from the start 
-     of the pandemic to current times. While it’s difficult to place an exact date on when a 
-     pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March 
-     of 2020. Hence, this narrative visualization will use March 2020 as the start of the pandemic. 
-     As of the creation of this narrative visualization, the most recent CPI data available is from 
-     June 2025. Thus, this narrative visualization will explore the percent change in the Consumer 
-     Price Index (CPI) of shelter from the start of the COVID-19 pandemic in March 2020 to the current
-      day in June 2025. <br> <br> This visualization focuses specifically on shelter during 
-      this time period because rents (and housing costs in general) spiked during the COVID 
-      pandemic, particularly in a lot of metro areas.This narrative visualization seeks to examine
-       the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19
-        pandemic to the current times in the context of the percent change in the CPI of other categories
-         of goods and services during this same time period.
-    </p>`;
-    data = allData;
-    lineShowing = false;
-    userInteraction = false;
-    updateX();
-    makeChart();
+            According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for 
+            and calculates the CPI, the CPI defined as a "measure of the average change over
+            time in the prices paid by urban consumers [in the United States of America] 
+            for a market basket of consumer goods and services." The specific goods and services
+            in this "market basket" may change over time. The CPI  tracks the month-to-month changes 
+            in the prices of those goods and services relative to their prices in a base period 
+            of time in the 1980s. The exact base year used to calculate the CPI varies by the good/service.
+            <br> <br> The BLS often presents data on the CPI in terms of 12-month percent 
+            changes across different categories of goods and services. Instead of a 12-month period,
+            this narrative visualization instead explores the CPI in the time period from the start 
+            of the pandemic to current times. While it’s difficult to place an exact date on when a 
+            pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March 
+            of 2020. Hence, this narrative visualization will use March 2020 as the start of the pandemic. 
+            As of the creation of this narrative visualization, the most recent CPI data available is from 
+            June 2025. Thus, this narrative visualization will explore the percent change in the Consumer 
+            Price Index (CPI) of shelter from the start of the COVID-19 pandemic in March 2020 to the current
+            day in June 2025. <br> <br> This visualization focuses specifically on shelter during 
+            this time period because rents (and housing costs in general) spiked during the COVID 
+            pandemic, particularly in a lot of metro areas.This narrative visualization seeks to examine
+            the percent change in the Consumer Price Index (CPI) of shelter from the start of the COVID-19
+                pandemic to the current times in the context of the percent change in the CPI of other categories
+                of goods and services during this same time period.
+            </p>`;
+                    data = allData;
+                    lineShowing = false;
+                    userInteraction = false;
+                    updateX();
+                    makeChart();
 
-    const annotations = [{
-        note: {
-        label: `The overall CPI  of all goods and services increased
+                    const annotations = [{
+                        note: {
+                            label: `The overall CPI  of all goods and services increased
          by 24.96794065% from March 2020 to June 2025. `,
-        // title: "Overall CPI",
-        bgPadding: 10,
-        },
-        x: 800,
-        y: 375,
-        dx: 100,
-        dy: -100,
-    }]
+                            bgPadding: 10,
+                        },
+                        x: 800,
+                        y: 375,
+                        dx: 100,
+                        dy: -100,
+                    }]
 
-    // Add annotation to the chart
-    const makeAnnotations = d3.annotation().annotations(annotations);
+                    // Add annotation to the chart
+                    const makeAnnotations = d3.annotation().annotations(annotations);
 
-    d3.select("#bar").append("g").call(makeAnnotations);
+                    d3.select("#bar").append("g").call(makeAnnotations);
 
-    } else if (slideNum == 2) {
-    div.innerHTML = `<p> The goods and services in the "market basket" used
+                } else if (slideNum == 2) {
+                    div.innerHTML = `<p> The goods and services in the "market basket" used
          the calculate the overall CPI are divided into categories (e.g., food)
           and further divided into smaller and smaller sub-categories. Each of 
           these categories and subcategories has their own CPI which contributes 
@@ -156,176 +159,177 @@ function changeContent() {
            data available at the creation of this narrative visualization is from May
             2025.</p>`;
 
-          data = big3Data;
-          lineShowing = true;
-          userInteraction = false;
-          updateX();
-          makeChart();
+                    data = big3Data;
+                    lineShowing = true;
+                    userInteraction = false;
+                    updateX();
+                    makeChart();
 
-            const annotations = [{
-            note: {
-            label: `		
-According to the BLS, shelter is in the category of goods 
-and services excluding food and energy. 
-For this category, its CPI increased by 39.05724324% 
-from March 2020 to June 2025 and its relative importance 
-is 79.978%  as of May 2025.`,		
-            // title: "Overall CPI",
-            bgPadding: 10,
-            wrap: 200,
-            },
-            x: 750,
-            y: 375,
-            dx: 100,
-            dy: -100,
-            
-        }]
+                    const annotations = [{
+                        note: {
+                            label: `According to the BLS, shelter is in the category of goods 
+                and services excluding food and energy. 
+                For this category, its CPI increased by 39.05724324% 
+                from March 2020 to June 2025 and its relative importance 
+                is 79.978%  as of May 2025.`,
+                            // title: "Overall CPI",
+                            bgPadding: 10,
+                            wrap: 200,
+                        },
+                        x: 750,
+                        y: 375,
+                        dx: 100,
+                        dy: -100,
 
-        // Add annotation to the chart
-        const makeAnnotations = d3.annotation().annotations(annotations);
+                    }]
 
-        d3.select("#bar").append("g").call(makeAnnotations);
-    } else if (slideNum == 3) {
-    div.innerHTML = `3`;
-    data = otherBigData;
-    lineShowing = true;
-    userInteraction = false;
-    updateX();
-    makeChart();
-    
-    }
-    else if (slideNum == 4) {
-    div.innerHTML = `4`;
-    data = otherSData;
-    lineShowing = true;
-    userInteraction = false;
-    updateX();
-    makeChart();
-    } else {
-        div.innerHTML = `5`;
-        data = allData;
-        lineShowing = false;
-        userInteraction = true;
-        updateX();
-        makeChart();
-    }
-    
-}
+                    // Add annotation to the chart
+                    const makeAnnotations = d3.annotation().annotations(annotations);
 
-// set up the chart itself
-const width = 1000;
-const height = 500;
-const margin = 50;
-const maxY = 60;
+                    d3.select("#bar").append("g").call(makeAnnotations);
+                } else if (slideNum == 3) {
+                    div.innerHTML = `3`;
+                    data = otherBigData;
+                    lineShowing = true;
+                    userInteraction = false;
+                    updateX();
+                    makeChart();
 
-changeContent();
+                }
+                else if (slideNum == 4) {
+                    div.innerHTML = `4`;
+                    data = otherSData;
+                    lineShowing = true;
+                    userInteraction = false;
+                    updateX();
+                    makeChart();
+                } else {
+                    div.innerHTML = `5`;
+                    data = allData;
+                    lineShowing = false;
+                    userInteraction = true;
+                    updateX();
+                    makeChart();
+                }
 
-// axes labels
-d3.select("svg")
-    .append("text")
-    .attr("class", "x label")
-    .attr("text-anchor", "end")
-    .attr("x", (width/2 + 2*margin))
-    .attr("y", height+margin*2-10)
-    .style("font-size", "14px") 
-    .text("Categories of Expenditures");
+            }
 
-d3.select("svg")
-    .append("text")
-    .attr("class", "y label")
-    .attr("text-anchor", "end")
-    .attr("x", -height/4)
-    .attr("y", 0)
-    .attr("dy", ".75em")
-    .attr("transform", "rotate(-90)")
-    .style("font-size", "14px") 
-    .text("Percentage Change in CPI from March 2020 to June 2025");
+            // set up the chart itself
+            const width = 1000;
+            const height = 500;
+            const margin = 50;
+            const maxY = 60;
 
-function makeChart() {
-    barChart.innerHTML = "";
+            changeContent();
 
-    // chart title
-    d3.select("svg")
-        .append("text")
-        .attr("x", (width/2 + margin))             
-        .attr("y", (margin/ 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "16px") 
-        .style("text-decoration", "underline")  
-        .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
+            // axes labels
+            d3.select("svg")
+                .append("text")
+                .attr("class", "x label")
+                .attr("text-anchor", "end")
+                .attr("x", (width / 2 + 2 * margin))
+                .attr("y", height + margin * 2 - 10)
+                .style("font-size", "14px")
+                .text("Categories of Expenditures");
 
+            d3.select("svg")
+                .append("text")
+                .attr("class", "y label")
+                .attr("text-anchor", "end")
+                .attr("x", -height / 4)
+                .attr("y", 0)
+                .attr("dy", ".75em")
+                .attr("transform", "rotate(-90)")
+                .style("font-size", "14px")
+                .text("Percentage Change in CPI from March 2020 to June 2025");
 
-    var x = d3.scaleBand().domain(xCategories).range([0, width]);
-    var y = d3.scaleLinear().domain([0,maxY]).range([height, 0]);
-    var rectColor = "#2690B6"
-    var tooltip = d3.select("#tooltip");
+            function makeChart() {
+                barChart.innerHTML = "";
 
-    d3.select('svg')
-    .attr("width", width + 2 * margin)
-    .attr("height", height + 2 * margin)
-    .append("g")
-    .attr("transform", "translate("+margin+","+margin+")")
-    .selectAll('rect')
-    .data(data)
-    .enter()
-    .append('rect')
-    .attr('x', function(d,i) { return (width * i)/xCategories.length;})
-    .attr('y', function(d) {return (height - (d.percentageChange * height/maxY));})
-    .attr("width", function(d,i ) {return width/xCategories.length;})
-    .attr("height", function(d,i) {return d.percentageChange * height/maxY;})
-    .attr("fill", rectColor)
-    .on("mouseover", function(d,i) {
-       var toolTipO = 0;
-        if (userInteraction) {
-            toolTipO = 1;
-        } else {
-            toolTipO = 0;
-        };
-        tooltip.style("opacity", toolTipO)
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY) + "px")
-            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
-    })
-    .on("mouseout", function() { tooltip.style("opacity", 0)});
-
-    // axes
-    d3.select("svg").append("g")
-    .attr("transform", "translate("+margin+","+margin+")")
-    .call(d3.axisLeft(y));
-
-    d3.select("svg").append("g")
-    .attr("transform", "translate("+margin+","+(height + margin)+")")
-    .call(d3.axisBottom(x));
-
-    if (lineShowing) {
-        // overall CPI line
-        d3.select("svg")
-            .append("g")
-            .attr("transform", "translate("+margin+","+margin+")")
-            .selectAll('line')
-            .data(allData)
-            .enter()
-            .append("line")
-            .attr("x1", 0)
-            .attr("x2", width)
-            .attr("y1", function(d) {return (height - (d.percentageChange * height/maxY));})
-            .attr("y2", function(d) {return (height - (d.percentageChange * height/maxY));})
-            .style("stroke", "red")
-            .style("stroke-width", 1);
+                // chart title
+                d3.select("svg")
+                    .append("text")
+                    .attr("x", (width / 2 + margin))
+                    .attr("y", (margin / 2))
+                    .attr("text-anchor", "middle")
+                    .style("font-size", "16px")
+                    .style("text-decoration", "underline")
+                    .text("Percentage Change in the\n Consumer Price Index (CPI) \n Across Selected Expenditure Categories from March 2020 to June 2025 (Not Seasonally Adjusted)");
 
 
-        // MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs see OneNote
-        d3.select("svg")
-            .append("text")
-            .attr("x", width - margin)
-            .attr("y", (height+margin)/2 + margin)
-            .style("fill", "red")
-        .text("overall CPI");
-    }
-};
+                var x = d3.scaleBand().domain(xCategories).range([0, width]);
+                var y = d3.scaleLinear().domain([0, maxY]).range([height, 0]);
+                var rectColor = "#2690B6"
+                var tooltip = d3.select("#tooltip");
 
-}
+                d3.select('svg')
+                    .attr("width", width + 2 * margin)
+                    .attr("height", height + 2 * margin)
+                    .append("g")
+                    .attr("transform", "translate(" + margin + "," + margin + ")")
+                    .selectAll('rect')
+                    .data(data)
+                    .enter()
+                    .append('rect')
+                    .attr('x', function (d, i) { return (width * i) / xCategories.length; })
+                    .attr('y', function (d) { return (height - (d.percentageChange * height / maxY)); })
+                    .attr("width", function (d, i) { return width / xCategories.length; })
+                    .attr("height", function (d, i) { return d.percentageChange * height / maxY; })
+                    .attr("fill", rectColor)
+                    .on("mouseover", function (d, i) {
+                        var toolTipO = 0;
+                        if (userInteraction) {
+                            toolTipO = 1;
+                        } else {
+                            toolTipO = 0;
+                        };
+                        tooltip.style("opacity", toolTipO)
+                            .style("left", (d3.event.pageX) + "px")
+                            .style("top", (d3.event.pageY) + "px")
+                            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
+                    })
+                    .on("mouseout", function () { tooltip.style("opacity", 0) });
+
+                // axes
+                d3.select("svg").append("g")
+                    .attr("transform", "translate(" + margin + "," + margin + ")")
+                    .call(d3.axisLeft(y));
+
+                d3.select("svg").append("g")
+                    .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
+                    .call(d3.axisBottom(x));
+
+                if (lineShowing) {
+                    // overall CPI line
+                    d3.select("svg")
+                        .append("g")
+                        .attr("transform", "translate(" + margin + "," + margin + ")")
+                        .selectAll('line')
+                        .data(allData)
+                        .enter()
+                        .append("line")
+                        .attr("x1", 0)
+                        .attr("x2", width)
+                        .attr("y1", function (d) { return (height - (d.percentageChange * height / maxY)); })
+                        .attr("y2", function (d) { return (height - (d.percentageChange * height / maxY)); })
+                        .style("stroke", "red")
+                        .style("stroke-width", 1);
+
+
+                    // MAYBE TODO: actually attach the position of the label to the line instead of hardcoding it but whatevs see OneNote
+                    d3.select("svg")
+                        .append("text")
+                        .attr("x", width - margin)
+                        .attr("y", (height + margin) / 2 + margin)
+                        .style("fill", "red")
+                        .text("overall CPI");
+                }
+            };
+
+        }
 
 
 
-</script></html>
+    </script>
+
+</html>
