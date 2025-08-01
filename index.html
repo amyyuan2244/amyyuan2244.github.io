@@ -266,7 +266,20 @@
                     const makeAnnotations = d3.annotation().annotations(annotations4);
                     d3.select("#bar").append("g").call(makeAnnotations);
                 } else {
-                    div.innerHTML = `5`;
+                    div.innerHTML = `Use the chart below examine the percent change
+                     in the Consumer Price Index (CPI) of various categories of goods
+                      and services from the start of the COVID-19 pandemic to the current 
+                      times in the context of the percent change in the CPI of other 
+                      categories of goods and services during this same time period in
+                       the bar chart below.
+                       <br><br>
+                       Click on a category's corresponding bar to drill down and examine 
+                       the CPI of its subcategories. Once you've reached the chart's furthest 
+                       level of detail in terms of subcategories, clicking on a bar again will 
+                       return you to the highest level of detail (all goods and services).
+                       <br><br>
+                       Mouseover a category's corresponding bar to see the details of its 
+                       relative importance and its specific percentage change from March 2020 to June 2025.`;
                     data = allData;
                     lineShowing = false;
                     userInteraction = true;
@@ -348,7 +361,9 @@
                         tooltip.style("opacity", toolTipO)
                             .style("left", (d3.event.pageX) + "px")
                             .style("top", (d3.event.pageY) + "px")
-                            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange + "% from March 2020 to June 2025")
+                            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange 
+                                    + "% from March 2020 to June 2025 and its relative importance is " + d.relativeImportance +
+                                " as of May 2025.")
                     })
                     .on("mouseout", function () { tooltip.style("opacity", 0) });
 
