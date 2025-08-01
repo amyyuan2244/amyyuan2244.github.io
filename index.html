@@ -316,7 +316,7 @@
                 .text("Percentage Change in CPI from March 2020 to June 2025");
 
             const drillDown = {
-                "all goods and services": big3Data, 
+                "all goods and services": big3Data,
                 "food": bigFoodData,
                 "energy": bigEnergyData,
                 "commodities and services excluding food and energy": otherBigData,
@@ -370,17 +370,17 @@
                         tooltip.style("opacity", toolTipO)
                             .style("left", (d3.event.pageX) + "px")
                             .style("top", (d3.event.pageY) + "px")
-                            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange 
-                                    + "% from March 2020 to June 2025 and its relative importance is " + d.relativeImportance +
+                            .html("The CPI of " + xCategories[i] + " has increased by " + d.percentageChange
+                                + "% from March 2020 to June 2025 and its relative importance is " + d.relativeImportance +
                                 " as of May 2025.")
                     })
                     .on("mouseout", function () { tooltip.style("opacity", 0) })
                     .on("click", function (d, i) {
                         if (userInteraction) {
-                            if (!(d.expenditureCategory in drillDown)){
+                            if (!(d.expenditureCategory in drillDown)) {
                                 data = allData;
                                 lineShowing = false;
-                                
+
                             } else {
                                 data = drillDown[d.expenditureCategory];
                                 lineShowing = true;
