@@ -59,12 +59,12 @@
             const otherSData = await d3.csv('https://amyyuan2244.github.io/otherServicesCategories.csv');
 
             //parameters
-            var slideNum = 1; // TODO set this up
-            var lineShowing = false; // TODO set this up for martini stuff
+            var slideNum = 1;
+            var lineShowing = false;
             var prevButtonShowing = false; // TODO set this up
             var prevButtonShowing = true; // TODO set this up
             var data = allData;
-            var userInteraction = false; // TODO
+            var userInteraction = false;
             var xCategories = [];
             for (let i = 0; i < data.length; i++) {
                 xCategories.push(data[i].expenditureCategory);
@@ -176,7 +176,6 @@
                             label: `Shelter is in this category. The CPI of commodities and services
                              increased by 39.05724324% from March 2020 to June 2025 and its relative 
                              importance is 79.978%  as of May 2025.`,
-                            // title: "Overall CPI",
                             bgPadding: 10,
                             wrap: 200,
                         },
@@ -206,7 +205,6 @@
                             label: `Shelter is in this subcategory. The CPI of services 
                             excluding food and energy increased by 25.52690485% from 
                             March 2020 to June 2025. `,
-                            // title: "Overall CPI",
                             bgPadding: 10,
                             wrap: 200,
                         },
@@ -251,7 +249,6 @@
                         note: {
                             label: `The CPI of shelter increased by 27.9839194%  from March 2020 to June 2025.
                              The relative importance of shelter is 35.473%  as of May 2025.`,
-                            // title: "Overall CPI",
                             bgPadding: 10,
                             wrap: 200,
                         },
@@ -318,6 +315,18 @@
                 .style("font-size", "14px")
                 .text("Percentage Change in CPI from March 2020 to June 2025");
 
+            const drillDown = {
+                "all goods and services": big3Data, 
+                "food": bigFoodData,
+                "energy": bigEnergyData,
+                "commodities and services excluding food and energy": otherBigData,
+                "food at home": foodData,
+                "energy commodities": energyCData,
+                "energy services": energySData,
+                "commodities excluding food and energy commodities": otherCData,
+                "services excluding energy services": otherSData,
+            };
+
             function makeChart() {
                 barChart.innerHTML = "";
 
@@ -365,7 +374,21 @@
                                     + "% from March 2020 to June 2025 and its relative importance is " + d.relativeImportance +
                                 " as of May 2025.")
                     })
-                    .on("mouseout", function () { tooltip.style("opacity", 0) });
+                    .on("mouseout", function () { tooltip.style("opacity", 0) })
+                    .on("click", function (d, i) {
+                        if (userInteraction) {
+                            if (!(d.expenditureCategory in drillDown)){
+                                data = allData;
+                                lineShowing = false;
+                                
+                            } else {
+                                data = drillDown[d.expenditureCategory];
+                                lineShowing = true;
+                            }
+                            updateX();
+                            makeChart();
+                        }
+                    });
 
                 // axes
                 d3.select("svg").append("g")
