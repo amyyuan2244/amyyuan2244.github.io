@@ -44,8 +44,6 @@
 
     <script>
         async function init() {
-
-
             // data
             const allData = await d3.csv('https://amyyuan2244.github.io/all.csv');
             const big3Data = await d3.csv('https://amyyuan2244.github.io/big3.csv');
@@ -60,17 +58,9 @@
 
             //parameters
             var slideNum = 1;
-            var lineShowing = false;
             var prevButtonShowing = false; // TODO set this up
             var prevButtonShowing = true; // TODO set this up
-            var data = allData;
-            var userInteraction = false;
-            var xCategories = [];
-            for (let i = 0; i < data.length; i++) {
-                xCategories.push(data[i].expenditureCategory);
-            };
-
-
+            
             function prev() {
                 slideNum = Math.max(slideNum - 1, 1);
                 changeContent();
