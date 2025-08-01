@@ -35,8 +35,8 @@
     <br />
 
     <div id="buttons">
-        <button id="prev"> Prev </button>
-        <button id="next"> Next </button>
+        <button id="prev" display="none"> Prev </button>
+        <button id="next" display="none"> Next </button>
     </div>
 
     <!-- add the d3-annotation library -->
@@ -60,7 +60,7 @@
             var slideNum = 1;
             var prevButtonShowing = false; // TODO set this up
             var prevButtonShowing = true; // TODO set this up
-            
+
             function prev() {
                 slideNum = Math.max(slideNum - 1, 1);
                 changeContent();
@@ -121,10 +121,14 @@
                     updateX();
                     makeChart();
 
+                    // prevButton.style.width = 0;
+                    prevButton.style.display = "none";
+                    nextButton.style.display = "inline-block";
+
                     const annotations1 = [{
                         note: {
                             label: `The overall CPI  of all commodities and services increased
-         by 24.96794065% from March 2020 to June 2025. `,
+                            by 24.96794065% from March 2020 to June 2025. `,
                             bgPadding: 10,
                             wrap: 200,
                         },
@@ -154,7 +158,7 @@
             and services excluding food and energy. The relative importance 
             of commodities and services excluding food and energy is 79.978%  as of May 2025.
             </p>`;
-
+                    prevButton.style.display = "inline-block";
                     data = big3Data;
                     lineShowing = true;
                     userInteraction = false;
@@ -230,6 +234,8 @@
                         to see the subcategory of shelter in the context of other categories
                          and its relative importance and change in CPI since the start of the 
                          COVID-19 pandemic.`;
+                    
+                    nextButton.style.display = "inline-block";
                     data = otherSData;
                     lineShowing = true;
                     userInteraction = false;
@@ -267,6 +273,8 @@
                        <br><br>
                        Mouseover a category's corresponding bar to see the details of its 
                        relative importance and its specific percentage change from March 2020 to June 2025.`;
+                    
+                    nextButton.style.display = "none";
                     data = allData;
                     lineShowing = false;
                     userInteraction = true;
