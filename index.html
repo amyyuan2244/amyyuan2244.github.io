@@ -223,12 +223,48 @@
 
                 }
                 else if (slideNum == 4) {
-                    div.innerHTML = `4`;
+                    div.innerHTML = `As we can see in the chart, the CPI of shelter 
+                    increased by 27.9839194%  from March 2020 to June 2025. In comparison,
+                     the overall CPI  of all goods and services increased by 24.96794065%
+                      from March 2020 to June 2025. Thus the CPI of shelter increased more 
+                      than the overall CPI since the beginning of the COVID-19 pandemic.
+                      <br> <br> 
+                      Furthermore, the relative importance of shelter is 35.473%  as of 
+                      May 2025. Thus the CPI of shelter contributed significantly to the 
+                      weighted average of the overall CPI.  This reflects how shelter 
+                      is a rather important expenditure for most consumers.
+                      <br> <br>
+                      Summarizing the journey through the narrative visualization so far, 
+                      we’ve examined what the CPI is and how it's calculated. 
+                      This includes the categories and subcategories of commodities and 
+                      services used to calculate the CPI and their relative importances.
+                       In particular, we've delved into those categories and subcategories
+                        to see the subcategory of shelter in the context of other categories
+                         and its relative importance and change in CPI since the start of the 
+                         COVID-19 pandemic.`;
                     data = otherSData;
                     lineShowing = true;
                     userInteraction = false;
                     updateX();
                     makeChart();
+                    const annotations4 = [{
+                        note: {
+                            label: `The CPI of shelter increased by 27.9839194%  from March 2020 to June 2025.
+                             The relative importance of shelter is 35.473%  as of May 2025.`,
+                            // title: "Overall CPI",
+                            bgPadding: 10,
+                            wrap: 200,
+                        },
+                        x: 300,
+                        y: 375,
+                        dx: 100,
+                        dy: -100,
+
+                    }]
+
+                    // Add annotation to the chart
+                    const makeAnnotations = d3.annotation().annotations(annotations4);
+                    d3.select("#bar").append("g").call(makeAnnotations);
                 } else {
                     div.innerHTML = `5`;
                     data = allData;
