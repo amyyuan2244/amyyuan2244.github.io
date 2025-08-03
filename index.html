@@ -19,7 +19,6 @@
         background: white;
         border: 0px;
     }
-
 </style>
 
 <body onload='init()'>
@@ -239,7 +238,7 @@
                          as well as its relative importance and percentage change in CPI since the start of the 
                          COVID-19 pandemic to current times. Now we're ready to similarly examine other categories
                           and subcategories of commodities and services in the final slide.`;
-                    
+
                     nextButton.style.display = "inline-block";
                     data = otherSData;
                     lineShowing = true;
@@ -282,7 +281,7 @@
                         A bibliography with the sources used to create this narrative visualization can 
                         be found at the bottom of the accompanying essay.
                        `;
-                    
+
                     nextButton.style.display = "none";
                     data = allData;
                     lineShowing = false;
@@ -300,27 +299,6 @@
             const maxY = 60;
 
             changeContent();
-
-            // axes labels
-            d3.select("svg")
-                .append("text")
-                .attr("class", "x label")
-                .attr("text-anchor", "end")
-                .attr("x", (width / 2 + 2 * margin))
-                .attr("y", height + margin * 2 - 10)
-                .style("font-size", "14px")
-                .text("Categories of Expenditures");
-
-            d3.select("svg")
-                .append("text")
-                .attr("class", "y label")
-                .attr("text-anchor", "end")
-                .attr("x", -height / 4)
-                .attr("y", 0)
-                .attr("dy", ".75em")
-                .attr("transform", "rotate(-90)")
-                .style("font-size", "14px")
-                .text("Percentage Change in CPI from March 2020 to June 2025");
 
             const drillDown = {
                 "all commodities and services": big3Data,
@@ -405,6 +383,27 @@
                 d3.select("svg").append("g")
                     .attr("transform", "translate(" + margin + "," + (height + margin) + ")")
                     .call(d3.axisBottom(x));
+
+                // axes labels
+                d3.select("svg")
+                    .append("text")
+                    .attr("class", "x label")
+                    .attr("text-anchor", "end")
+                    .attr("x", (width / 2 + 2 * margin))
+                    .attr("y", height + margin * 2 - 10)
+                    .style("font-size", "14px")
+                    .text("Categories of Expenditures");
+
+                d3.select("svg")
+                    .append("text")
+                    .attr("class", "y label")
+                    .attr("text-anchor", "end")
+                    .attr("x", -height / 4)
+                    .attr("y", 0)
+                    .attr("dy", ".75em")
+                    .attr("transform", "rotate(-90)")
+                    .style("font-size", "14px")
+                    .text("Percentage Change in CPI from March 2020 to June 2025");
 
                 if (lineShowing) {
                     // overall CPI line
