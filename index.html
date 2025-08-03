@@ -180,7 +180,13 @@
                     d3.select("#bar").append("g").call(makeAnnotations2);
 
                 } else if (slideNum == 3) {
-                    div.innerHTML = `According to the BLS, shelter is in the subcategory
+                    div.innerHTML = `Continuing on from our previous slide, we're currently looking 
+                    at the subcategories of the category of "commodities and services excluding food and energy."
+                    As we delve deeper into the categories of expenditures 
+                    used to calculate the CPI, we note that each category of a CPI is a 
+                    weighted average of the all the subcategories of CPI that comprise it [7].
+                    <br><br>
+                    According to the BLS, shelter is in the subcategory 
                      of services excluding food and energy. The relative importance 
                      of services excluding food and energy is 60.674% as of May 2025.`;
                     data = otherBigData;
@@ -193,7 +199,7 @@
                         note: {
                             label: `Shelter is in this subcategory. The CPI of services 
                             excluding food and energy increased by 25.52690485% from 
-                            March 2020 to June 2025. `,
+                            March 2020 to June 2025 and its relative importance is 60.674% as of May 2025. `,
                             bgPadding: 10,
                             wrap: 200,
                         },
@@ -210,7 +216,9 @@
 
                 }
                 else if (slideNum == 4) {
-                    div.innerHTML = `As we can see in the chart, the CPI of shelter 
+                    div.innerHTML = `Continuing on from our previous slide, we're currently looking 
+                    at the subcategories of the category of "services excluding food and energy."
+                    As we can see in the chart, the CPI of shelter 
                     increased by 27.9839194% from March 2020 to June 2025. In comparison,
                      the overall CPI of all commodities and services increased by 24.96794065%
                       from March 2020 to June 2025. Thus the CPI of shelter increased more 
