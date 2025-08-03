@@ -56,6 +56,11 @@
             //parameters
             var slideNum = 1;
 
+            const prevButton = document.getElementById('prev');
+            const nextButton = document.getElementById('next');
+            const div = document.getElementById('explanation');
+            const barChart = document.getElementById('bar');
+
             function prev() {
                 slideNum = Math.max(slideNum - 1, 1);
                 changeContent();
@@ -64,11 +69,6 @@
                 slideNum = Math.min(slideNum + 1, 5);
                 changeContent();
             }
-
-            const prevButton = document.getElementById('prev');
-            const nextButton = document.getElementById('next');
-            const div = document.getElementById('explanation');
-            const barChart = document.getElementById('bar');
 
             // triggers
             prevButton.addEventListener('click', prev);
@@ -131,9 +131,9 @@
                     }]
 
                     // Add annotation to the chart
-                    const makeAnnotations = d3.annotation().annotations(annotations1);
+                    const makeAnnotations1 = d3.annotation().annotations(annotations1);
 
-                    d3.select("#bar").append("g").call(makeAnnotations);
+                    d3.select("#bar").append("g").call(makeAnnotations1);
 
                 } else if (slideNum == 2) {
                     div.innerHTML = `<p> The commodities and services in the "market basket" used
@@ -173,8 +173,8 @@
                     }]
 
                     // Add annotation to the chart
-                    const makeAnnotations = d3.annotation().annotations(annotations2);
-                    d3.select("#bar").append("g").call(makeAnnotations);
+                    const makeAnnotations2 = d3.annotation().annotations(annotations2);
+                    d3.select("#bar").append("g").call(makeAnnotations2);
 
                 } else if (slideNum == 3) {
                     div.innerHTML = `According to the BLS, shelter is in the subcategory
@@ -202,8 +202,8 @@
                     }]
 
                     // Add annotation to the chart
-                    const makeAnnotations = d3.annotation().annotations(annotations3);
-                    d3.select("#bar").append("g").call(makeAnnotations);
+                    const makeAnnotations3 = d3.annotation().annotations(annotations3);
+                    d3.select("#bar").append("g").call(makeAnnotations3);
 
                 }
                 else if (slideNum == 4) {
@@ -248,8 +248,8 @@
                     }]
 
                     // Add annotation to the chart
-                    const makeAnnotations = d3.annotation().annotations(annotations4);
-                    d3.select("#bar").append("g").call(makeAnnotations);
+                    const makeAnnotations4 = d3.annotation().annotations(annotations4);
+                    d3.select("#bar").append("g").call(makeAnnotations4);
                 } else {
                     div.innerHTML = `Use the chart below examine the percent change
                      in the Consumer Price Index (CPI) of various categories of commodities
