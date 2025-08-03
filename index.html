@@ -83,24 +83,24 @@
 
             function changeContent() {
                 if (slideNum == 1) {
-                    div.innerHTML = `<p> In the United States of America， rents
-                         (and the cost of shelter in general) spiked during the COVID 
+                    div.innerHTML = `<p> In the United States of America, rents
+                        (and the cost of shelter in general) spiked during the COVID 
             pandemic, particularly in a lot of urban areas [1], [2]. Let's examine this through the 
             lens of the Consumer Price Index (CPI). Specifically, let's examine the percent change
              in the CPI of shelter from the start of the COVID-19 pandemic 
-             to the current times in the context of the percent change in the CPI of other categories
-              of commodities and services during this same time period.<br> <br>
-            According to the  U.S. Bureau of Labor Statistics (BLS), which gathers data for 
+             to the current times in the context of the percent change in the CPI of other categories 
+             of commodities and services during this same time period.<br> <br>
+            According to the U.S. Bureau of Labor Statistics (BLS), which gathers data for 
             and calculates the CPI, the CPI defined as a "measure of the average change over
             time in the prices paid by urban consumers [in the United States of America] 
             for a market basket of consumer commodities and services" [3]. The specific commodities and services
-            in this "market basket" may change over time [4]. The CPI  tracks the month-to-month changes 
+            in this "market basket" may change over time [4]. The CPI tracks the month-to-month changes 
             in the prices of those commodities and services relative to their prices in a base period 
             of time in the 1980s [5]. The exact base year used to calculate the CPI varies by the commodity/service [5].
             <br> <br> The BLS often presents data on the CPI in terms of 12-month percent 
             changes across different categories of commodities and services [3]. Instead of a 12-month period,
             this narrative visualization instead explores the CPI in the time period from the start 
-            of the pandemic to current times. While it’s difficult to place an exact date on when a 
+            of the pandemic to current times. While it's difficult to place an exact date on when a 
             pandemic starts, the World Health Organization officially declared COVID-19 a pandemic in March 
             of 2020 [6]. Hence, this narrative visualization will use March 2020 as the start of the pandemic. 
             As of the creation of this narrative visualization, the most recent CPI data available is from 
@@ -119,7 +119,7 @@
 
                     const annotations1 = [{
                         note: {
-                            label: `The overall CPI  of all commodities and services increased
+                            label: `The overall CPI of all commodities and services increased
                             by 24.96794065% from March 2020 to June 2025. `,
                             bgPadding: 10,
                             wrap: 200,
@@ -148,7 +148,7 @@
             <br><br>
             According to the BLS, shelter is in the category of commodities and 
             and services excluding food and energy. The relative importance 
-            of commodities and services excluding food and energy is 79.978%  as of May 2025.
+            of commodities and services excluding food and energy is 79.978% as of May 2025.
             </p>`;
                     prevButton.style.display = "inline-block";
                     data = big3Data;
@@ -161,7 +161,7 @@
                         note: {
                             label: `Shelter is in this category. The CPI of commodities and services
                              increased by 39.05724324% from March 2020 to June 2025 and its relative 
-                             importance is 79.978%  as of May 2025.`,
+                             importance is 79.978% as of May 2025.`,
                             bgPadding: 10,
                             wrap: 200,
                         },
@@ -179,7 +179,7 @@
                 } else if (slideNum == 3) {
                     div.innerHTML = `According to the BLS, shelter is in the subcategory
                      of services excluding food and energy. The relative importance 
-                     of services excluding food and energy is 60.674%  as of May 2025.`;
+                     of services excluding food and energy is 60.674% as of May 2025.`;
                     data = otherBigData;
                     lineShowing = true;
                     userInteraction = false;
@@ -208,18 +208,18 @@
                 }
                 else if (slideNum == 4) {
                     div.innerHTML = `As we can see in the chart, the CPI of shelter 
-                    increased by 27.9839194%  from March 2020 to June 2025. In comparison,
-                     the overall CPI  of all commodities and services increased by 24.96794065%
+                    increased by 27.9839194% from March 2020 to June 2025. In comparison,
+                     the overall CPI of all commodities and services increased by 24.96794065%
                       from March 2020 to June 2025. Thus the CPI of shelter increased more 
                       than the overall CPI since the beginning of the COVID-19 pandemic.
                       <br> <br> 
-                      Furthermore, the relative importance of shelter is 35.473%  as of 
+                      Furthermore, the relative importance of shelter is 35.473% as of 
                       May 2025. Thus the CPI of shelter contributed significantly to the 
-                      weighted average of the overall CPI.  This reflects how shelter 
+                      weighted average of the overall CPI. This reflects how shelter 
                       is a rather important expenditure for most consumers.
                       <br> <br>
                       Summarizing the journey through the narrative visualization so far, 
-                      we’ve examined what the CPI is and how it's calculated. 
+                      we've examined what the CPI is and how it's calculated. 
                       This includes the categories and subcategories of commodities and 
                       services used to calculate the CPI and their relative importances.
                        In particular, we've delved into those categories and subcategories
@@ -235,8 +235,8 @@
                     makeChart();
                     const annotations4 = [{
                         note: {
-                            label: `The CPI of shelter increased by 27.9839194%  from March 2020 to June 2025.
-                             The relative importance of shelter is 35.473%  as of May 2025.`,
+                            label: `The CPI of shelter increased by 27.9839194% from March 2020 to June 2025.
+                             The relative importance of shelter is 35.473% as of May 2025.`,
                             bgPadding: 10,
                             wrap: 200,
                         },
